@@ -3,8 +3,8 @@
 .Rhistory
 .RData
 homebrew
-src/*.o
-src/*.so
-src/*.dll
-src/Makevars
+src/**/*.o
+src/**/*.so
+src/**/*.dll
+src/**/*.a
 .DS_Store
