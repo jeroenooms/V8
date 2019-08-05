@@ -1,10 +1,12 @@
 #include <libplatform/libplatform.h>
 #include "V8_types.h"
+#include <unistd.h>
 
 /* used for setting icu data below */
 #ifdef __APPLE__
 #define V8_ICU_DATA_PATH "/usr/local/opt/v8/libexec/icudtl.dat"
-#include <unistd.h>
+#elif defined(__linux__)
+#define V8_ICU_DATA_PATH "/usr/lib64/icudt64l.dat"
 #endif
 
 /* Note: Tov8::LocalChecked() aborts if x is empty */
