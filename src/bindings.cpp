@@ -256,4 +256,3 @@ ctxptr make_context(bool set_console){
 bool context_enable_typed_arrays( Rcpp::XPtr< v8::Persistent<v8::Context> > ctx ){
   return true;
 }
-
