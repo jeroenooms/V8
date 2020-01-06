@@ -6,11 +6,12 @@ fortran: false
 matrix:
   include:
     - os: osx
-      brew_packages: v8
+      brew_packages: v8 --force-bottle
       osx_image: xcode7.3
     - os: osx
       osx_image: xcode7.3
       disable_homebrew: true
+      before_install: sed -i.bak 's/-isysroot /-I/g' $(R RHOME)/etc/Makeconf
 
 addons:
   apt:
