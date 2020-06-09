@@ -102,7 +102,7 @@ class ArrayBuffer {
     if (!buf)
       return ThrowError("Unable to allocate ArrayBuffer.");
 
-    args.This()->SetPointerInInternalField(0, buf);
+    args.This()->SetAlignedPointerInInternalField(0, buf);
 
     args.This()->Set(v8::String::New("byteLength"),
                      v8::Integer::NewFromUnsigned(num_bytes),
@@ -215,7 +215,7 @@ class TypedArray {
       }
 
       // TODO(deanm): Error check.
-      void* buf = buffer->GetPointerFromInternalField(0);
+      void* buf = buffer->GetAlignedPointerFromInternalField(0);
       args.This()->SetIndexedPropertiesToExternalArrayData(
           reinterpret_cast<char*>(buf) + byte_offset, TEAType, length);
     } else if (args[0]->IsObject()) {  // TypedArray / type[] constructor.
@@ -228,7 +228,7 @@ class TypedArray {
       buffer = ArrayBuffer::GetTemplate()->
                  GetFunction()->NewInstance(1, argv);
 
-      void* buf = buffer->GetPointerFromInternalField(0);
+      void* buf = buffer->GetAlignedPointerFromInternalField(0);
       args.This()->SetIndexedPropertiesToExternalArrayData(
           buf, TEAType, length);
       // TODO(deanm): check for failure.
@@ -255,7 +255,7 @@ class TypedArray {
 
       buffer = ArrayBuffer::GetTemplate()->
                  GetFunction()->NewInstance(1, argv);
-      void* buf = buffer->GetPointerFromInternalField(0);
+      void* buf = buffer->GetAlignedPointerFromInternalField(0);
 
       args.This()->SetIndexedPropertiesToExternalArrayData(
           buf, TEAType, length);
