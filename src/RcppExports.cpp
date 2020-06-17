@@ -6,6 +6,15 @@
 
 using namespace Rcpp;
 
+// teardown_platform
+void teardown_platform();
+RcppExport SEXP _V8_teardown_platform() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    teardown_platform();
+    return R_NilValue;
+END_RCPP
+}
 // version
 std::string version();
 RcppExport SEXP _V8_version() {
@@ -89,6 +98,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_V8_teardown_platform", (DL_FUNC) &_V8_teardown_platform, 0},
     {"_V8_version", (DL_FUNC) &_V8_version, 0},
     {"_V8_context_eval", (DL_FUNC) &_V8_context_eval, 3},
     {"_V8_write_array_buffer", (DL_FUNC) &_V8_write_array_buffer, 3},

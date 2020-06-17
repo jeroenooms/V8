@@ -40,6 +40,15 @@ static void fatal_cb(const char* location, const char* message){
   REprintf("V8 FATAL ERROR in %s: %s", location, message);
 }
 
+static std::unique_ptr<v8::Platform> platform;
+
+// [[Rcpp::export]]
+void teardown_platform(){
+  printf("UNLOADING V8....\n");
+  platform.release();
+  platform.reset();
+}
+
 // [[Rcpp::init]]
 void start_v8_isolate(void *dll){
 #ifdef V8_ICU_DATA_PATH
@@ -49,7 +58,7 @@ void start_v8_isolate(void *dll){
   }
 #endif
 #if (V8_MAJOR_VERSION * 100 + V8_MINOR_VERSION) >= 704
-  static std::unique_ptr<v8::Platform> platform = v8::platform::NewDefaultPlatform();
+  platform = v8::platform::NewDefaultPlatform();
   v8::V8::InitializePlatform(platform.get());
 #else
   v8::V8::InitializePlatform(v8::platform::CreateDefaultPlatform());
